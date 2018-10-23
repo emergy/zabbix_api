@@ -8,6 +8,12 @@ Consult Zabbix API documentation for details.
 
 Module is fully compatible with Zabbix 4.0
 
+### Installation
+
+```bash
+go get github.com/emergy/zabbix_api
+```
+
 ### Example
 
 ```golang
