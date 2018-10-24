@@ -46,7 +46,7 @@ func New(url string, user string, password string) *API {
     return &API{0, "", url, user, password, &http.Client{ Timeout: time.Second * 10 }}
 }
 
-func (api *API) Request(method string, params interface{}) (map[string]interface{}, error) {
+func (api *API) Request(method string, params interface{}) (interface{}, error) {
     api.id = api.id + 1
     noAuth := false
 
@@ -73,7 +73,7 @@ func (api *API) Request(method string, params interface{}) (map[string]interface
         })
 
         if err != nil {
-            return ZabbixResponse{}, err
+            return map[string]interface{}{}, err
         }
 
         api.id = api.id + 1
