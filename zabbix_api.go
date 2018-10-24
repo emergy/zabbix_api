@@ -48,8 +48,20 @@ func New(url string, user string, password string) *API {
 
 func (api *API) Request(method string, params interface{}) (ZabbixResponse, error) {
     api.id = api.id + 1
+    noAuth := false
 
-    if api.auth == "" {
+    noAuthMethodList := []string{
+        "apiinfo.version",
+        "checkAuthentication",
+    }
+
+    for _, m := range noAuthMethodList {
+        if m == method {
+            noAuth = true
+        }
+    }
+
+    if api.auth == "" && noAuth == false {
         res, err := zabbixRequest(api.client, api.url, ZabbixRequest{
             Jsonrpc: "2.0",
             Method: "user.login",
@@ -73,7 +85,10 @@ func (api *API) Request(method string, params interface{}) (ZabbixResponse, erro
         Method: method,
         Params: params,
         ID: api.id,
-        Auth: api.auth,
+    }
+
+    if !noAuth {
+        jsonRequest.Auth = api.auth
     }
 
     res, err := zabbixRequest(api.client, api.url, jsonRequest)
