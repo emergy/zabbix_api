@@ -20,7 +20,7 @@ go get github.com/emergy/zabbix_api
 package main
 
 import (
-    "zabbix_api"
+    "github.com/emergy/zabbix_api"
     "fmt"
 )
 
