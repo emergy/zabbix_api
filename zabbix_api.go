@@ -52,7 +52,7 @@ func (api *API) Request(method string, params interface{}) (ZabbixResponse, erro
 
     noAuthMethodList := []string{
         "apiinfo.version",
-        "checkAuthentication",
+        "user.checkAuthentication",
     }
 
     for _, m := range noAuthMethodList {
